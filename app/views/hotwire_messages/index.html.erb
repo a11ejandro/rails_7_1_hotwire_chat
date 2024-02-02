@@ -1,0 +1,16 @@
+<%= turbo_stream_from 'common' %>
+
+<div class='d-flex flex-column h-100'>
+  <div class='d-flex mb-2 bg-secondary'>
+    <%= link_to 'Logout', sessions_path, data: { turbo_method: :delete }, class: 'p-2 text-white text-decoration-none' %>
+  </div>
+  
+  <div class='flex-grow-1 d-flex flex-column overflow-auto message-list' id='messages'
+      data-controller='message-list' data-action='resize@window->message-list#scrollToBottom'>
+    <%= render partial: 'message', collection: @messages, cached: true %>
+  </div>
+
+  <%= turbo_frame_tag @new_message, class: 'flex-shrink-0 px-3 pb-3 pt-2' do %>
+    <%= render 'form', message: @new_message %>
+  <% end %>
+</div>

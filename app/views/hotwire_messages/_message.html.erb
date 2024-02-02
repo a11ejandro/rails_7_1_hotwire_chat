@@ -1,0 +1,23 @@
+<%= turbo_frame_tag dom_id(message), class: 'pb-1 px-3' do %>
+  <div class='row row-cols-auto gx-2'>
+    <div class='col fw-bold'>
+      <%= h message.author.name %>
+    </div>
+    <div class='col'>
+      <%= message.created_at %>
+    </div>
+    <% if message.edited? %>
+      <div class='col'>
+        <span class='fw-light fs-7'>edited <%= message.updated_at %></span>
+      </div>
+    <% end %>
+    <div class="col <%= 'invisible' unless message.author_id == current_user.id %>" data-message-target='actions'>
+      <%= link_to 'edit', edit_hotwire_message_path(message), class: 'fs-7 link-secondary' %>
+      <%= link_to 'delete', hotwire_message_path(message), data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'fs-7 link-secondary' %>
+    </div>
+  </div>
+
+  <div class='formatted-content'>
+    <%= h message.content  %>
+  </div>
+<% end %>

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_18_080600) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_23_142248) do
+  create_table "messages", force: :cascade do |t|
+    t.integer "author_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_messages_on_author_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -18,4 +26,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_080600) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  add_foreign_key "messages", "users", column: "author_id"
 end

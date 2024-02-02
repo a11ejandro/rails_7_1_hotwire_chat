@@ -1,0 +1,10 @@
+<%= form_with model: message, url: message.persisted? ? hotwire_message_path(message) : hotwire_messages_path do |f| %>
+  <%= f.text_field :content, class: 'form-control', required: true, autocomplete: 'off', autofocus: true, placeholder: "Message everybody" %>
+
+  <% if message.persisted? %>
+    <div class='pt-2'>
+      <%= link_to 'Cancel', hotwire_message_path(message), class: 'btn btn-sm btn-outline-secondary' %>
+      <%= f.submit 'Save changes', class: 'btn btn-sm btn-primary'%>
+    <div>
+  <% end %>
+<% end %>
